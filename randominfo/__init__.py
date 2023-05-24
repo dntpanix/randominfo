@@ -1,11 +1,17 @@
 from __future__ import unicode_literals
-import sys, glob, csv, pytz, shutil
+import sys
+import glob
+import csv
+import pytz
+import shutil
 from os import listdir, getcwd, access, W_OK
 from os.path import abspath, join, dirname, split, exists, isfile, isdir
 sys.path.append("/randominfo/")
 from random import randint, choice, sample, randrange
 from datetime import datetime
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 from math import ceil
 
 
@@ -119,14 +125,14 @@ def get_formatted_datetime(outFormat, strDate, strFormat = "%d-%m-%Y %H:%M:%S"):
 def get_email(prsn = None):
 	domains = ["gmail", "yahoo", "hotmail", "express", "yandex", "nexus", "online", "omega", "institute", "finance", "company", "corporation", "community"]
 	extentions = ['com', 'in', 'jp', 'us', 'uk', 'org', 'edu', 'au', 'de', 'co', 'me', 'biz', 'dev', 'ngo', 'site', 'xyz', 'zero', 'tech']
-	
+
 	if prsn == None:
 		prsn = Person()
-	
+
 	c = randint(0,2)
 	dmn = '@' + choice(domains)
 	ext = choice(extentions)
-	
+
 	if c == 0:
 		email = prsn.first_name + get_formatted_datetime("%Y", prsn.birthdate, "%d %b, %Y") + dmn + "." + ext
 	elif c == 1:
@@ -260,7 +266,7 @@ def get_birthdate(startAge = None, endAge = None, _format = "%d %b, %Y"):
 def get_address():
 	full_addr = []
 	addrParam = ['street', 'landmark', 'area', 'city', 'state', 'country', 'pincode']
-	for i in range(5,12):
+	for i in range(4,10):
 		addrFile = csv.reader(open(full_path('data.csv'), 'r'))
 		allAddrs = []
 		for addr in addrFile:
@@ -299,7 +305,7 @@ class Person:
 		self.hobbies = get_hobbies()
 		self.address = get_address()
 		self.customAttr = {}
-	
+
 	def set_attr(self, attr_name, value = None):
 		if attr_name.isalnum():
 			if attr_name[0].isalpha():
@@ -309,7 +315,7 @@ class Person:
 				raise ValueError("First character of attribute must be an alphabet.")
 		else:
 			raise ValueError("Attribute name only contains alphabets and digits.")
-	
+
 	def get_attr(self, attr_name):
 		if attr_name.isalnum():
 			if attr_name[0].isalpha():
