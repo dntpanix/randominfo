@@ -360,9 +360,6 @@ class Person:
         }
 
 
-person = Person()
-print(person.full_name, person.gender, person.address)
-
 '''
 REFERENCE:
 http://www.first-names-meanings.com/country-indian-names.html
