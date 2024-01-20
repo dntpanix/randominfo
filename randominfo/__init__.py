@@ -5,7 +5,7 @@ from os.path import abspath, join, dirname, split, exists, isfile, isdir
 sys.path.append("/randominfo/")
 from random import randint, choice, sample, randrange
 from datetime import datetime
-from PIL import Image, ImageDraw, ImageFont
+#from PIL import Image, ImageDraw, ImageFont
 from math import ceil
 
 
@@ -263,13 +263,19 @@ def get_address():
 	for i in range(5,12):
 		addrFile = csv.reader(open(full_path('data.csv'), 'r'))
 		allAddrs = []
+
 		for addr in addrFile:
 			try:
 				if addr[i] != '':
 					allAddrs.append(addr[i])
-			except:
+			except IndexError:
 				pass
-		full_addr.append(choice(allAddrs))
+
+		if not allAddrs:
+			print(f"No data available for address parameter {addrParam[i - 5]}.")
+			full_addr.append("")
+		else:
+			full_addr.append(choice(allAddrs))
 	full_addr = dict(zip(addrParam, full_addr))
 	return full_addr
 
