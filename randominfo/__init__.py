@@ -269,7 +269,8 @@ def get_address():
 					allAddrs.append(addr[i])
 			except:
 				pass
-		full_addr.append(choice(allAddrs))
+		if (len(allAddrs) > 0):
+			full_addr.append(choice(allAddrs))
 	full_addr = dict(zip(addrParam, full_addr))
 	return full_addr
 
